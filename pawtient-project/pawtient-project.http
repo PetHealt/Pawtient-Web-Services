@@ -1,0 +1,6 @@
+@pawtient_project_HostAddress = http://localhost:5287
+
+GET {{pawtient_project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
