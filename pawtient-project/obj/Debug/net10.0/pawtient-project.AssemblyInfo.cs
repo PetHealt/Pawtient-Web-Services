@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pawtient-project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98500973950040f9160de7a02e89ccf71b7cee18")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+161c9aa51919cbc42e99dec3f37d508bba0d76d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("pawtient-project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pawtient-project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

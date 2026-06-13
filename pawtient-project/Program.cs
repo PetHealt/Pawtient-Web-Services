@@ -1,65 +1,83 @@
 using Microsoft.EntityFrameworkCore;
+using pawtient_project.Appointment.Domain.Repositories;
+using pawtient_project.Appointment.Infrastructure.Persistence.Repositories;
+using pawtient_project.Clinic.Domain.Repositories;
+using pawtient_project.Clinic.Infrastructure.Persistence.Repositories;
+using pawtient_project.IAM.Domain.Repositories;
+using pawtient_project.IAM.Infrastructure.Persistence.Repositories;
+using pawtient_project.Profiles.Domain.Repositories;
+using pawtient_project.Profiles.Infrastructure.Persistence.Repositories;
+using pawtient_project.Report.Domain.Repositories;
+using pawtient_project.Report.Infrastructure.Persistence.Repositories;
 using pawtient_project.Shared.Domain.Repositories;
 using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
-
+using pawtient_project.Store.Domain.Repositories;
+using pawtient_project.Store.Infrastructure.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-// builder.Services.AddOpenApi();
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseMySQL(connectionString);
-});
+    options.UseMySQL(connectionString!));
+
+// Shared
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// IAM
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+// Profiles
+builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
+builder.Services.AddScoped<IVeterinarianRepository, VeterinarianRepository>();
+builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
+
+// Clinic
+builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
+builder.Services.AddScoped<IBreedRepository, BreedRepository>();
+builder.Services.AddScoped<IPetRepository, PetRepository>();
+builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<IVaccineRepository, VaccineRepository>();
+
+// Appointment
+builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
+
+// Store
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IInventoryMovementRepository, InventoryMovementRepository>();
+builder.Services.AddScoped<IStockAlertRepository, StockAlertRepository>();
+
+// Report
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IConsultationReportRepository, ConsultationReportRepository>();
+builder.Services.AddScoped<IInventoryReportRepository, InventoryReportRepository>();
+builder.Services.AddScoped<IAppointmentReportRepository, AppointmentReportRepository>();
+builder.Services.AddScoped<IVaccinationReportRepository, VaccinationReportRepository>();
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<AppDbContext>();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     context.Database.EnsureCreated();
 }
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // app.MapOpenApi();  
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -16,22 +16,15 @@
 
     <ItemGroup>
       <Folder Include="Appointment\Application\" />
-      <Folder Include="Appointment\Infrastructure\" />
       <Folder Include="Appointment\Interfaces\" />
       <Folder Include="Clinic\Application\" />
-      <Folder Include="Clinic\Infrastructure\" />
       <Folder Include="Clinic\Interfaces\" />
       <Folder Include="IAM\Application\" />
-      <Folder Include="IAM\Infrastructure\" />
-      <Folder Include="IAM\Interfaces\" />
       <Folder Include="Profiles\Application\" />
-      <Folder Include="Profiles\Infrastructure\" />
       <Folder Include="Profiles\Interfaces\" />
       <Folder Include="Report\Application\" />
-      <Folder Include="Report\Infrastructure\" />
       <Folder Include="Report\Interfaces\" />
       <Folder Include="Store\Application\" />
-      <Folder Include="Store\Infrastructure\" />
       <Folder Include="Store\Interfaces\" />
     </ItemGroup>
 
