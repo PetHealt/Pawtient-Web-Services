@@ -1,8 +1,6 @@
-# Pendiente de implementar — Pawtient Web Services
+# Pendiente de implementar
 
-Lo que falta completar por Bounded Context siguiendo el patrón del proyecto del profesor `learning-center-platform`.
-
----
+Lo que falta completar por Bounded Context 
 
 ## Patrón a seguir por cada Bounded Context
 
