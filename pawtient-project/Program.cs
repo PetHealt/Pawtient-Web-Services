@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using pawtient_project.Data;
+using pawtient_project.Shared.Domain.Repositories;
+using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
+using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
