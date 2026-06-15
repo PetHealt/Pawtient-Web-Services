@@ -17,8 +17,6 @@
     <ItemGroup>
       <Folder Include="Appointment\Application\" />
       <Folder Include="Appointment\Interfaces\" />
-      <Folder Include="Clinic\Application\" />
-      <Folder Include="Clinic\Interfaces\" />
       <Folder Include="IAM\Application\" />
       <Folder Include="Profiles\Application\" />
       <Folder Include="Profiles\Interfaces\" />

@@ -1127,31 +1127,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Brianna\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Mathias\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Brianna\\RiderProjects\\Pawtient-Web-Services\\pawtient-project\\pawtient-project.csproj",
+      "projectUniqueName": "C:\\Users\\Mathias\\RiderProjects\\Pawtient-Web-Services\\pawtient-project\\pawtient-project.csproj",
       "projectName": "pawtient-project",
-      "projectPath": "C:\\Users\\Brianna\\RiderProjects\\Pawtient-Web-Services\\pawtient-project\\pawtient-project.csproj",
-      "packagesPath": "C:\\Users\\Brianna\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Brianna\\RiderProjects\\Pawtient-Web-Services\\pawtient-project\\obj\\",
+      "projectPath": "C:\\Users\\Mathias\\RiderProjects\\Pawtient-Web-Services\\pawtient-project\\pawtient-project.csproj",
+      "packagesPath": "C:\\Users\\Mathias\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mathias\\RiderProjects\\Pawtient-Web-Services\\pawtient-project\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Brianna\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Mathias\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1212,7 +1205,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Brianna\\.dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Users\\Mathias\\.dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
