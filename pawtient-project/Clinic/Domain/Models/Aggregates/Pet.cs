@@ -33,4 +33,17 @@ public class Pet
         WeightKg = weightKg;
         IsActive = true;
     }
+    
+    public void Update(int? speciesId, int? breedId, string? name,
+        DateOnly? birthDate, string? sex, string? microchip, string? coatColor, decimal? weightKg)
+    {
+        if (speciesId.HasValue) SpeciesId = speciesId.Value;
+        if (breedId.HasValue) BreedId = breedId.Value;
+        if (name is not null) Name = name;
+        if (birthDate.HasValue) BirthDate = birthDate.Value;
+        if (sex is not null) Sex = sex;
+        if (microchip is not null) Microchip = microchip;
+        if (coatColor is not null) CoatColor = coatColor;
+        if (weightKg.HasValue) WeightKg = weightKg.Value;
+    }
 }

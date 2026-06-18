@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using pawtient_project.Appointment.Domain.Repositories;
 using pawtient_project.Appointment.Infrastructure.Persistence.Repositories;
+using pawtient_project.Clinic.Application.CommandServices;
+using pawtient_project.Clinic.Application.Internal.CommandServices;
+using pawtient_project.Clinic.Application.Internal.QueryServices;
+using pawtient_project.Clinic.Application.QueryServices;
 using pawtient_project.Clinic.Domain.Repositories;
 using pawtient_project.Clinic.Infrastructure.Persistence.Repositories;
 using pawtient_project.IAM.Domain.Repositories;
@@ -43,6 +47,8 @@ builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 builder.Services.AddScoped<IVaccineRepository, VaccineRepository>();
+builder.Services.AddScoped<IPetCommandService, PetCommandService>();
+builder.Services.AddScoped<IPetQueryService, PetQueryService>();
 
 // Appointment
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
