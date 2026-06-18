@@ -1,6 +1,7 @@
 /pawtient-project.sln
-# Carpetas de compilación que deben ser ignoradas
-obj/
+# Ignorar carpetas de compilación
 bin/
+obj/
 .vs/
 .idea/
+*.user
