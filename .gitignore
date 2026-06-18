@@ -1,0 +1,6 @@
+/pawtient-project.sln
+# Carpetas de compilación que deben ser ignoradas
+obj/
+bin/
+.vs/
+.idea/
