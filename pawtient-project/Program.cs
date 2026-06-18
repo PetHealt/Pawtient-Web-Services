@@ -11,6 +11,8 @@ using pawtient_project.IAM.Domain.Repositories;
 using pawtient_project.IAM.Infrastructure.Persistence.Repositories;
 using pawtient_project.Profiles.Domain.Repositories;
 using pawtient_project.Profiles.Infrastructure.Persistence.Repositories;
+using pawtient_project.Report.Application.CommandServices;
+using pawtient_project.Report.Application.QueryServices;
 using pawtient_project.Report.Domain.Repositories;
 using pawtient_project.Report.Infrastructure.Persistence.Repositories;
 using pawtient_project.Shared.Domain.Repositories;
@@ -18,6 +20,8 @@ using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Con
 using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using pawtient_project.Store.Domain.Repositories;
 using pawtient_project.Store.Infrastructure.Persistence.Repositories;
+using pawtient_project.Report.Application.Internal.CommandServices;
+using pawtient_project.Report.Application.Internal.QueryServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +72,9 @@ builder.Services.AddScoped<IConsultationReportRepository, ConsultationReportRepo
 builder.Services.AddScoped<IInventoryReportRepository, InventoryReportRepository>();
 builder.Services.AddScoped<IAppointmentReportRepository, AppointmentReportRepository>();
 builder.Services.AddScoped<IVaccinationReportRepository, VaccinationReportRepository>();
+builder.Services.AddScoped<IReportCommandService, ReportCommandService>();
+builder.Services.AddScoped<IReportQueryService, ReportQueryService>();
+
 
 var app = builder.Build();
 

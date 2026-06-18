@@ -20,8 +20,6 @@
       <Folder Include="IAM\Application\" />
       <Folder Include="Profiles\Application\" />
       <Folder Include="Profiles\Interfaces\" />
-      <Folder Include="Report\Application\" />
-      <Folder Include="Report\Interfaces\" />
       <Folder Include="Store\Application\" />
       <Folder Include="Store\Interfaces\" />
     </ItemGroup>
