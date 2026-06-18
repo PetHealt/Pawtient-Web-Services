@@ -1,0 +1,7 @@
+/pawtient-project/IAM/
+# Ignorar carpetas de compilación
+bin/
+obj/
+.vs/
+.idea/
+*.user
