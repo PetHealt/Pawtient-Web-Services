@@ -19,4 +19,12 @@ public class Supplier
         Phone = phone;
         Ruc = ruc;
     }
+
+    public void Update(string name, string? contactEmail, string? phone, string? ruc)
+    {
+        Name = name;
+        ContactEmail = contactEmail;
+        Phone = phone;
+        Ruc = ruc;
+    }
 }

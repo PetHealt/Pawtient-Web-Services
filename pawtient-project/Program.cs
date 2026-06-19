@@ -9,6 +9,10 @@ using pawtient_project.Clinic.Domain.Repositories;
 using pawtient_project.Clinic.Infrastructure.Persistence.Repositories;
 using pawtient_project.IAM.Domain.Repositories;
 using pawtient_project.IAM.Infrastructure.Persistence.Repositories;
+using pawtient_project.IAM.Application.CommandServices;
+using pawtient_project.IAM.Application.QueryServices;
+using pawtient_project.IAM.Application.Internal.CommandServices;
+using pawtient_project.IAM.Application.Internal.QueryServices;
 using pawtient_project.Profiles.Domain.Repositories;
 using pawtient_project.Profiles.Infrastructure.Persistence.Repositories;
 using pawtient_project.Report.Application.CommandServices;
@@ -19,11 +23,22 @@ using pawtient_project.Shared.Domain.Repositories;
 using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using pawtient_project.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using pawtient_project.Store.Domain.Repositories;
+using pawtient_project.Store.Application.CommandServices;
+using pawtient_project.Store.Application.QueryServices;
+using pawtient_project.Store.Application.Internal.CommandServices;
+using pawtient_project.Store.Application.Internal.QueryServices;
 using pawtient_project.Store.Infrastructure.Persistence.Repositories;
 using pawtient_project.Report.Application.Internal.CommandServices;
 using pawtient_project.Report.Application.Internal.QueryServices;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.WithOrigins("https://pawtient.netlify.app")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +53,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // IAM
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 
 // Profiles
 builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
@@ -60,11 +77,17 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
 
 // Store
-builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
-builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IInventoryMovementRepository, InventoryMovementRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IStockAlertRepository, StockAlertRepository>();
+
+builder.Services.AddScoped<IProductCommandService, ProductCommandService>();
+builder.Services.AddScoped<IProductQueryService, ProductQueryService>();
+builder.Services.AddScoped<ISupplierCommandService, SupplierCommandService>();
+builder.Services.AddScoped<ISupplierQueryService, SupplierQueryService>();
+
 
 // Report
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
@@ -90,6 +113,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.MapControllers();
 
