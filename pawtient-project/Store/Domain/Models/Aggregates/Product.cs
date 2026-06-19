@@ -31,4 +31,15 @@ public class Product
         MinimumStock = minimumStock;
         IsActive = true;
     }
+
+    public void Update(int? categoryId, int? supplierId, string name, string? description, decimal unitPrice, int stock, int minimumStock)
+    {
+        CategoryId = categoryId;
+        SupplierId = supplierId;
+        Name = name;
+        Description = description;
+        UnitPrice = unitPrice;
+        Stock = stock;
+        MinimumStock = minimumStock;
+    }
 }
