@@ -44,10 +44,10 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<VaccineReminder> VaccineReminders { get; set; }
 
     // Store
-    public DbSet<ProductCategory> ProductCategories { get; set; }
-    public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<InventoryMovement> InventoryMovements { get; set; }
+    public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<StockAlert> StockAlerts { get; set; }
 
     // Report
@@ -406,17 +406,14 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         // =============================================
         // Store
         // =============================================
-        builder.Entity<ProductCategory>(entity =>
-        {
+        builder.Entity<ProductCategory>(entity => {
             entity.ToTable("Product_categories");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("CAT_id");
             entity.Property(e => e.Name).HasColumnName("CAT_name").IsRequired();
-            entity.HasIndex(e => e.Name).IsUnique();
         });
 
-        builder.Entity<Supplier>(entity =>
-        {
+        builder.Entity<Supplier>(entity => {
             entity.ToTable("Suppliers");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("SUP_id");
@@ -427,8 +424,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             entity.Property(e => e.Ruc).HasColumnName("SUP_ruc");
         });
 
-        builder.Entity<Product>(entity =>
-        {
+        builder.Entity<Product>(entity => {
             entity.ToTable("Products");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("PRD_id");
@@ -437,39 +433,30 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             entity.Property(e => e.SupplierId).HasColumnName("SUP_id");
             entity.Property(e => e.Name).HasColumnName("PRD_name").IsRequired();
             entity.Property(e => e.Description).HasColumnName("PRD_description");
-            entity.Property(e => e.UnitPrice).HasColumnName("PRD_unit_price").HasDefaultValue(0.00m);
-            entity.Property(e => e.Stock).HasColumnName("PRD_stock").HasDefaultValue(0);
-            entity.Property(e => e.MinimumStock).HasColumnName("PRD_minimum_stock").HasDefaultValue(0);
-            entity.Property(e => e.IsActive).HasColumnName("PRD_is_active").HasDefaultValue(true);
+            entity.Property(e => e.UnitPrice).HasColumnName("PRD_unit_price");
+            entity.Property(e => e.Stock).HasColumnName("PRD_stock");
+            entity.Property(e => e.MinimumStock).HasColumnName("PRD_minimum_stock");
+            entity.Property(e => e.IsActive).HasColumnName("PRD_is_active");
             entity.HasOne(e => e.Category).WithMany().HasForeignKey(e => e.CategoryId);
             entity.HasOne(e => e.Supplier).WithMany().HasForeignKey(e => e.SupplierId);
         });
 
-        builder.Entity<InventoryMovement>(entity =>
-        {
+        builder.Entity<InventoryMovement>(entity => {
             entity.ToTable("Inventory_movements");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("IVM_id");
             entity.Property(e => e.ProductId).HasColumnName("PRD_id").IsRequired();
-            entity.Property(e => e.ConsultationId).HasColumnName("CON_id");
-            entity.Property(e => e.Type).HasColumnName("IVM_type").IsRequired();
-            entity.Property(e => e.Quantity).HasColumnName("IVM_quantity").IsRequired();
-            entity.Property(e => e.UnitCost).HasColumnName("IVM_unit_cost");
-            entity.Property(e => e.Date).HasColumnName("IVM_date");
-            entity.Property(e => e.Notes).HasColumnName("IVM_notes");
+            entity.Property(e => e.Quantity).HasColumnName("IVM_quantity");
             entity.HasOne(e => e.Product).WithMany().HasForeignKey(e => e.ProductId);
         });
 
-        builder.Entity<StockAlert>(entity =>
-        {
+        builder.Entity<StockAlert>(entity => {
             entity.ToTable("Stock_alerts");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("SAL_id");
             entity.Property(e => e.ProductId).HasColumnName("PRD_id").IsRequired();
             entity.Property(e => e.ClinicId).HasColumnName("CLI_id").IsRequired();
-            entity.Property(e => e.Message).HasColumnName("SAL_message");
-            entity.Property(e => e.CreatedAt).HasColumnName("SAL_created_at");
-            entity.Property(e => e.Resolved).HasColumnName("SAL_resolved").HasDefaultValue(false);
+            entity.Property(e => e.Resolved).HasColumnName("SAL_resolved");
             entity.HasOne(e => e.Product).WithMany().HasForeignKey(e => e.ProductId);
         });
 
