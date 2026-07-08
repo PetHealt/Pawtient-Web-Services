@@ -3,6 +3,7 @@ using pawtient_project.Clinic.Domain.Models.Aggregates;
 using pawtient_project.Clinic.Domain.Repositories;
 using pawtient_project.Clinic.Interfaces.Rest.Resources;
 using pawtient_project.Shared.Domain.Repositories;
+using pawtient_project.Shared.Infrastructure.Security;
 
 namespace pawtient_project.Clinic.Application.Internal.CommandServices;
 
@@ -10,26 +11,19 @@ public class PetCommandService : IPetCommandService
 {
     private readonly IPetRepository _petRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ICurrentUserService _currentUserService;
 
-    public PetCommandService(IPetRepository petRepository, IUnitOfWork unitOfWork)
+    public PetCommandService(IPetRepository petRepository, IUnitOfWork unitOfWork, ICurrentUserService currentUserService)
     {
         _petRepository = petRepository;
         _unitOfWork = unitOfWork;
+        _currentUserService = currentUserService;
     }
 
     public async Task<Pet> CreateAsync(CreatePetResource resource, CancellationToken cancellationToken = default)
     {
-        var pet = new Pet(
-            resource.ClinicId,
-            resource.SpeciesId,
-            resource.BreedId,
-            resource.Name,
-            resource.BirthDate,
-            resource.Sex,
-            resource.Microchip,
-            resource.CoatColor,
-            resource.WeightKg
-        );
+        var clinicId = await _currentUserService.GetClinicIdAsync(cancellationToken);
+        var pet = new Pet(clinicId, resource.Name, resource.Species, resource.Breed, resource.Age);
         await _petRepository.AddAsync(pet, cancellationToken);
         await _unitOfWork.CompleteAsync(cancellationToken);
         return pet;
@@ -39,16 +33,7 @@ public class PetCommandService : IPetCommandService
     {
         var pet = await _petRepository.FindByIdAsync(id, cancellationToken);
         if (pet is null) return null;
-        pet.Update(
-            resource.SpeciesId,
-            resource.BreedId,
-            resource.Name,
-            resource.BirthDate,
-            resource.Sex,
-            resource.Microchip,
-            resource.CoatColor,
-            resource.WeightKg
-        );
+        pet.Update(resource.Name, resource.Species, resource.Breed, resource.Age);
         _petRepository.Update(pet);
         await _unitOfWork.CompleteAsync(cancellationToken);
         return pet;

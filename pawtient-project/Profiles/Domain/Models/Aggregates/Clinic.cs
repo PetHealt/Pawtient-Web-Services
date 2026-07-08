@@ -19,4 +19,9 @@ public class Clinic
         Phone = phone;
         Ruc = ruc;
     }
+
+    public void UpdateName(string name)
+    {
+        Name = name;
+    }
 }

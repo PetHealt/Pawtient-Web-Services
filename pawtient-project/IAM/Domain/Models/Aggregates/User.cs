@@ -12,18 +12,36 @@ public class User
     public string PasswordHash { get; private set; }
     
     public string Role { get; private set; }
+    public string PlanName { get; private set; }
     public string Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
     public User() { }
 
-    public User(string fullName, string email, string passwordHash, string role)
+    public User(string fullName, string email, string passwordHash, string role, string planName = "Paw Care")
     {
         FullName = fullName;
         Email = email;
         PasswordHash = passwordHash;
         Role = role;
+        PlanName = planName;
         Status = "ACTIVE";
         CreatedAt = DateTime.UtcNow;
+    }
+
+    public void UpdateProfile(string fullName, string email)
+    {
+        FullName = fullName;
+        Email = email;
+    }
+
+    public void UpdatePlan(string planName)
+    {
+        PlanName = planName;
+    }
+
+    public void Deactivate()
+    {
+        Status = "INACTIVE";
     }
 }

@@ -11,7 +11,7 @@ public class AppointmentReportRepository(AppDbContext context)
 {
     public async Task<IEnumerable<AppointmentReport>> FindByClinicIdAsync(int clinicId, CancellationToken cancellationToken = default)
     {
-        return await Context.AppointmentReports
+        return await Context.Set<AppointmentReport>()
             .Where(r => r.ClinicId == clinicId)
             .ToListAsync(cancellationToken);
     }

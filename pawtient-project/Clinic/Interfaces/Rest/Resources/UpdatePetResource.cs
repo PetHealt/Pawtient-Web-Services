@@ -1,11 +1,7 @@
-﻿namespace pawtient_project.Clinic.Interfaces.Rest.Resources;
+namespace pawtient_project.Clinic.Interfaces.Rest.Resources;
 
 public record UpdatePetResource(
-    int? SpeciesId,
-    int? BreedId,
-    string? Name,
-    DateOnly? BirthDate,
-    string? Sex,
-    string? Microchip,
-    string? CoatColor,
-    decimal? WeightKg);
+    string Name,
+    string Species,
+    string Breed,
+    int Age);

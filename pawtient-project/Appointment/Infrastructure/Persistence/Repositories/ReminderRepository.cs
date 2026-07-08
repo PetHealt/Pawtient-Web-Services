@@ -11,7 +11,7 @@ public class ReminderRepository(AppDbContext context)
 {
     public async Task<IEnumerable<Reminder>> FindByAppointmentIdAsync(int appointmentId, CancellationToken cancellationToken = default)
     {
-        return await Context.Reminders
+        return await Context.Set<Reminder>()
             .Where(r => r.AppointmentId == appointmentId)
             .ToListAsync(cancellationToken);
     }

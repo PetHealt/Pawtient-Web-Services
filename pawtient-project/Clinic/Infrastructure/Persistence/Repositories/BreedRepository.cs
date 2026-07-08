@@ -11,7 +11,7 @@ public class BreedRepository(AppDbContext context)
 {
     public async Task<IEnumerable<Breed>> FindBySpeciesIdAsync(int speciesId, CancellationToken cancellationToken = default)
     {
-        return await Context.Breeds
+        return await Context.Set<Breed>()
             .Where(b => b.SpeciesId == speciesId)
             .ToListAsync(cancellationToken);
     }

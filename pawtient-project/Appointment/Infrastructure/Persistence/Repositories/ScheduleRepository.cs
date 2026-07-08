@@ -11,7 +11,7 @@ public class ScheduleRepository(AppDbContext context)
 {
     public async Task<IEnumerable<Schedule>> FindByVeterinarianIdAsync(int veterinarianId, CancellationToken cancellationToken = default)
     {
-        return await Context.Schedules
+        return await Context.Set<Schedule>()
             .Where(s => s.VeterinarianId == veterinarianId)
             .ToListAsync(cancellationToken);
     }

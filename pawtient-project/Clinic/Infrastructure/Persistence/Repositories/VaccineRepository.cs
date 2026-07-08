@@ -11,7 +11,7 @@ public class VaccineRepository(AppDbContext context)
 {
     public async Task<IEnumerable<Vaccine>> FindByMedicalRecordIdAsync(int medicalRecordId, CancellationToken cancellationToken = default)
     {
-        return await Context.Vaccines
+        return await Context.Set<Vaccine>()
             .Where(v => v.MedicalRecordId == medicalRecordId)
             .ToListAsync(cancellationToken);
     }

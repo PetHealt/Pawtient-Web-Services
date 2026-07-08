@@ -4,9 +4,12 @@ public class Pet
 {
     public int Id { get; private set; }
     public int ClinicId { get; private set; }
-    public int SpeciesId { get; private set; }
+    public int? SpeciesId { get; private set; }
     public int? BreedId { get; private set; }
     public string Name { get; private set; }
+    public string SpeciesName { get; private set; }
+    public string BreedName { get; private set; }
+    public int Age { get; private set; }
     public DateOnly? BirthDate { get; private set; }
     public string Sex { get; private set; }
     public string? Microchip { get; private set; }
@@ -26,11 +29,25 @@ public class Pet
         SpeciesId = speciesId;
         BreedId = breedId;
         Name = name;
+        SpeciesName = string.Empty;
+        BreedName = string.Empty;
+        Age = 0;
         BirthDate = birthDate;
         Sex = sex;
         Microchip = microchip;
         CoatColor = coatColor;
         WeightKg = weightKg;
+        IsActive = true;
+    }
+
+    public Pet(int clinicId, string name, string speciesName, string breedName, int age)
+    {
+        ClinicId = clinicId;
+        Name = name;
+        SpeciesName = speciesName;
+        BreedName = breedName;
+        Age = age;
+        Sex = "UNKNOWN";
         IsActive = true;
     }
     
@@ -45,5 +62,13 @@ public class Pet
         if (microchip is not null) Microchip = microchip;
         if (coatColor is not null) CoatColor = coatColor;
         if (weightKg.HasValue) WeightKg = weightKg.Value;
+    }
+
+    public void Update(string name, string speciesName, string breedName, int age)
+    {
+        Name = name;
+        SpeciesName = speciesName;
+        BreedName = breedName;
+        Age = age;
     }
 }

@@ -11,7 +11,7 @@ public class MedicalRecordRepository(AppDbContext context)
 {
     public async Task<MedicalRecord?> FindByPetIdAsync(int petId, CancellationToken cancellationToken = default)
     {
-        return await Context.MedicalRecords
+        return await Context.Set<MedicalRecord>()
             .FirstOrDefaultAsync(m => m.PetId == petId, cancellationToken);
     }
 }

@@ -3,14 +3,16 @@ using pawtient_project.Store.Application.CommandServices;
 using pawtient_project.Store.Domain.Models.Aggregates;
 using pawtient_project.Store.Domain.Repositories;
 using pawtient_project.Store.Interfaces.Rest.Resources;
+using pawtient_project.Shared.Infrastructure.Security;
 
 namespace pawtient_project.Store.Application.Internal.CommandServices;
 
-public class ProductCommandService(IProductRepository productRepository, IUnitOfWork unitOfWork) : IProductCommandService
+public class ProductCommandService(IProductRepository productRepository, IUnitOfWork unitOfWork, ICurrentUserService currentUserService) : IProductCommandService
 {
     public async Task<Product> CreateAsync(CreateProductResource res, CancellationToken ct)
     {
-        var product = new Product(res.ClinicId, res.CategoryId, res.SupplierId, res.Name, res.Description, res.UnitPrice, res.Stock, res.MinimumStock);
+        var clinicId = await currentUserService.GetClinicIdAsync(ct);
+        var product = new Product(clinicId, null, null, res.Name, null, res.Price, res.Stock, 0);
         await productRepository.AddAsync(product, ct);
         await unitOfWork.CompleteAsync(ct);
         return product;
@@ -21,7 +23,7 @@ public class ProductCommandService(IProductRepository productRepository, IUnitOf
         var product = await productRepository.FindByIdAsync(id, ct);
         if (product == null) return null;
         
-        product.Update(res.CategoryId, res.SupplierId, res.Name, res.Description, res.UnitPrice, res.Stock, res.MinimumStock);
+        product.Update(null, null, res.Name, null, res.Price, res.Stock, 0);
         
         productRepository.Update(product);
         await unitOfWork.CompleteAsync(ct);

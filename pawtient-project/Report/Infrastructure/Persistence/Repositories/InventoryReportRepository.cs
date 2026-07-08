@@ -11,7 +11,7 @@ public class InventoryReportRepository(AppDbContext context)
 {
     public async Task<IEnumerable<InventoryReport>> FindByClinicIdAsync(int clinicId, CancellationToken cancellationToken = default)
     {
-        return await Context.InventoryReports
+        return await Context.Set<InventoryReport>()
             .Where(r => r.ClinicId == clinicId)
             .ToListAsync(cancellationToken);
     }

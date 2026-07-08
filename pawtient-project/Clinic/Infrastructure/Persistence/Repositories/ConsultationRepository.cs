@@ -11,7 +11,7 @@ public class ConsultationRepository(AppDbContext context)
 {
     public async Task<IEnumerable<Consultation>> FindByMedicalRecordIdAsync(int medicalRecordId, CancellationToken cancellationToken = default)
     {
-        return await Context.Consultations
+        return await Context.Set<Consultation>()
             .Where(c => c.MedicalRecordId == medicalRecordId)
             .ToListAsync(cancellationToken);
     }

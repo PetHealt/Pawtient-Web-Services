@@ -11,7 +11,7 @@ public class VeterinarianRepository(AppDbContext context)
 {
     public async Task<Veterinarian?> FindByUserIdAsync(int userId, CancellationToken cancellationToken = default)
     {
-        return await Context.Veterinarians
+        return await Context.Set<Veterinarian>()
             .FirstOrDefaultAsync(v => v.UserId == userId, cancellationToken);
     }
 }

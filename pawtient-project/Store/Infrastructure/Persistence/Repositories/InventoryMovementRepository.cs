@@ -10,7 +10,7 @@ public class InventoryMovementRepository(AppDbContext context): BaseRepository<I
 {
     public async Task<IEnumerable<InventoryMovement>> FindByProductIdAsync(int productId, CancellationToken cancellationToken = default)
     {
-        return await Context.InventoryMovements
+        return await Context.Set<InventoryMovement>()
             .Where(i => i.ProductId == productId)
             .ToListAsync(cancellationToken);
     }

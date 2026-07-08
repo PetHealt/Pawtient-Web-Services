@@ -28,19 +28,12 @@ public class ReportQueryService : IReportQueryService
         
         var inventoryReports = await _inventoryReportRepository.FindByClinicIdAsync(clinicId, cancellationToken);
         var latestInventory = inventoryReports.OrderByDescending(r => r.GeneratedAt).FirstOrDefault();
-        var totalExpenses = latestInventory?.TotalInventoryValue ?? 0;
         var lowStockAlerts = latestInventory?.LowStockCount ?? 0;
-        
-        var appointmentReports = await _appointmentReportRepository.FindByClinicIdAsync(clinicId, cancellationToken);
-        var latestAppointments = appointmentReports.OrderByDescending(r => r.GeneratedAt).FirstOrDefault();
-        var totalAppointments = latestAppointments?.TotalAppointments ?? 0;
 
         return new ReportSummaryResource(
             totalRevenue,
-            totalExpenses,
-            totalRevenue - totalExpenses,
-            lowStockAlerts,
-            totalAppointments
+            totalRevenue,
+            lowStockAlerts
         );
     }
 
