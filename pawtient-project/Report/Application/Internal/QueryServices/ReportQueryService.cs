@@ -2,33 +2,30 @@
 using pawtient_project.Report.Domain.Models.Aggregates;
 using pawtient_project.Report.Domain.Repositories;
 using pawtient_project.Report.Interfaces.Rest.Resources;
+using pawtient_project.Store.Domain.Repositories;
 
 namespace pawtient_project.Report.Application.Internal.QueryServices;
 
 public class ReportQueryService : IReportQueryService
 {
     private readonly IInvoiceRepository _invoiceRepository;
-    private readonly IAppointmentReportRepository _appointmentReportRepository;
-    private readonly IInventoryReportRepository _inventoryReportRepository;
+    private readonly IProductRepository _productRepository;
 
     public ReportQueryService(
         IInvoiceRepository invoiceRepository,
-        IAppointmentReportRepository appointmentReportRepository,
-        IInventoryReportRepository inventoryReportRepository)
+        IProductRepository productRepository)
     {
         _invoiceRepository = invoiceRepository;
-        _appointmentReportRepository = appointmentReportRepository;
-        _inventoryReportRepository = inventoryReportRepository;
+        _productRepository = productRepository;
     }
 
     public async Task<ReportSummaryResource> GenerateGeneralReportAsync(int clinicId, CancellationToken cancellationToken = default)
     {
         var invoices = await _invoiceRepository.FindByClinicIdAsync(clinicId, cancellationToken);
         var totalRevenue = invoices.Sum(i => i.Amount);
-        
-        var inventoryReports = await _inventoryReportRepository.FindByClinicIdAsync(clinicId, cancellationToken);
-        var latestInventory = inventoryReports.OrderByDescending(r => r.GeneratedAt).FirstOrDefault();
-        var lowStockAlerts = latestInventory?.LowStockCount ?? 0;
+
+        var lowStockProducts = await _productRepository.FindLowStockByClinicIdAsync(clinicId, cancellationToken);
+        var lowStockAlerts = lowStockProducts.Count();
 
         return new ReportSummaryResource(
             totalRevenue,
